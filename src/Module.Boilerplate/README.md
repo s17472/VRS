@@ -10,3 +10,7 @@
 `python main.py` or `uvicorn main:app`
 ### Docker 
 `docker run --rm -it -p 8000:8000 bolier uvicorn main:app --host 0.0.0.0 --port 8000`
+
+# Documentation 
+`{url}/docs` - Swagger
+`{url}/redoc` - ReDoc
