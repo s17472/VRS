@@ -1,0 +1,47 @@
+
+[tool.poetry]
+name = "VRS.Boilerplate"
+version = "0.1.0"
+description = ""
+authors = ["Benedykt Koscinski <s17472@pjwstk.edu.pl>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+uvicorn = "^0.12.2"
+fastapi = "^0.61.2"
+pydantic = "^1.7.2"
+python-multipart = "^0.0.5"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+flake8 = "^3.8.4"
+isort = "^5.6.4"
+
+[tool.black]
+line-length = 95
+exclude = '''
+(
+  /(
+      \.eggs        
+    | \.git          
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+
+[tool.isort]
+force_single_line = true
+import_heading_stdlib="Builtins"
+import_heading_firstparty="Local"
+import_heading_thirdparty="3rd party"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
