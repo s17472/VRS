@@ -1,0 +1,56 @@
+version: '3.7'
+
+services: 
+  seq:
+    container_name: seq
+    image: datalust/seq:latest
+    restart: unless-stopped
+    ports: 
+      - 5341:80
+    volumes: 
+      - logs:/data
+    environment:
+      ACCEPT_EULA: Y
+
+  main:
+    container_name: vrs-Module.Main
+    build: src/Module.Main
+    environment:
+      CAM_IP: 'http://host.docker.internal:8000/camera/mjpeg'
+      FGN_ENABLED: 'True'
+      VRN_ENABLED: 'True'
+      DIDN_ENABLED: 'True'
+    depends_on:
+      - seq
+      - module-didn
+      - module-fgn
+      - module-vrn
+
+  module-fgn:
+    container_name: vrs-module-fgn
+    build: src/Module.FGN/
+    ports:
+      - '8520:8500'
+    environment:
+      MODEL_NAME: fgn
+
+  module-didn:
+    container_name: vrs-module-didn
+    build: src/Module.DIDN/
+    ports:
+      - '8510:8500'
+    environment: 
+      MODEL_NAME: didn
+
+  module-vrn:
+    container_name: vrs-module-vrn
+    build: src/Module.VRN/
+    command: ["--model_config_file=/models/models.config"]
+    ports:
+      - '8500:8500'
+    environment: 
+      MODEL_NAME: vrn
+      MODEL_BASE_NAME: vgg_base
+
+volumes: 
+  logs:
