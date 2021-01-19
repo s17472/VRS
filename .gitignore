@@ -473,5 +473,31 @@ fabric.properties
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
-# Mac
-.DS_Store
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*/venv*
+*/model/*
+!*/model/tf_model_here
+*/.idea/
+/src/Module.Main/venv3/
+/src/Module.FGN/model/flow/
+/src/Module.DIDN/model/didn/
+/src/Module.VRN/model/vgg_base/
+/src/Module.VRN/model/vrn/
