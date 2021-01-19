@@ -19,6 +19,7 @@ def f(*preds):
     weights = {'FGN': 0.6,
                'VRN': 0.4,
                'DIDN': 0.2}
+
     def norm(value):
         return 1 if value > 1 else value
 
@@ -38,29 +39,35 @@ def get_probablity_string(prediction):
 
 
 def log(module_type, ts, source, prediction):
-    logging.info("{ModuleType}: Prediction: {Prediction}%, violence probability - {Probability}, timestamp: {Timestamp}",
-                 ModuleType=module_type, Prediction=round(prediction*100, 2), Probability=get_probablity_string(prediction),
-                 Timestamp=str(ts), Source=source)
+    logging.info(
+        "{ModuleType}: Prediction: {Prediction}%, violence probability - {Probability}, timestamp: {Timestamp}",
+        ModuleType=module_type, Prediction=round(prediction * 100, 2), Probability=get_probablity_string(prediction),
+        Timestamp=str(ts), Source=source)
 
 
-def log_papa(ts, source, predictions):
+def log_final_result(ts, source, predictions):
     prediction = f(*predictions)
-    logging.info("{ModuleType}: Prediction: {Prediction}%, violence probability - {Probability}, timestamp: {Timestamp}",
-                 ModuleType='VRS', Prediction=round(prediction*100, 2), Probability=get_probablity_string(prediction),
-                 Timestamp=str(ts), Source=source, Action="Detection")
+    logging.info(
+        "{ModuleType}: Prediction: {Prediction}%, violence probability - {Probability}, timestamp: {Timestamp}",
+        ModuleType='VRS', Prediction=round(prediction * 100, 2), Probability=get_probablity_string(prediction),
+        Timestamp=str(ts), Source=source, Action="Detection")
+
 
 def log_all(ts, source, *predictions):
     for name, p in predictions:
         log(name, ts, source, p)
 
-    log_papa(ts, source, predictions)
+    log_final_result(ts, source, predictions)
+
 
 def log_msg(msg, *parametrs):
     logging.info(msg, *parametrs)
 
+
 def log_start(source, fgn, vrn, didn):
     logging.info("Starting VRS on {Source}. Modules enabled: FGN={FGN}, VRN={VRN}, DIDN={DIDN}",
                  Source=source, FGN=fgn, VRN=vrn, DIDN=didn, Action="Start")
+
 
 def log_stop():
     logging.warn("Stopping VRS on {Source}", Source=CAM_IP, Action="Stop")

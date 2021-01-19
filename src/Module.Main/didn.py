@@ -15,6 +15,7 @@ def reshape_didn(frames):
 
     return reshaped_frames
 
+
 def transform_didn(frames):
     frames = np.array(frames)
     frames = (frames / 255.).astype(np.float16)

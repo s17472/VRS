@@ -8,10 +8,8 @@ from didn import transform_didn, get_prediction_didn, reshape_didn
 from vrn import reshape_vrn, transform_vrn, get_prediction_vrn
 from log import log_all, log_start, log_stop
 from fgn import reshape_fgn, transform_fgn, get_prediction_fgn
-from video_cap import get_frames_range, collect_frames, frames_now
+from video_cap import collect_frames, frames_now
 import multiprocessing
-import env_file
-from tabulate import tabulate
 
 
 def fgn(frames):
@@ -22,23 +20,17 @@ def fgn(frames):
 
 
 def vrn(frames):
-    reshaped_frames_vrn = reshape_vrn(frames)
-    transformed_frames_vrn = transform_vrn(reshaped_frames_vrn)
-    prediction = get_prediction_vrn(transformed_frames_vrn)
+    reshaped_frames = reshape_vrn(frames)
+    transformed_frames = transform_vrn(reshaped_frames)
+    prediction = get_prediction_vrn(transformed_frames)
     return prediction
 
 
 def didn(frames):
-    reshaped_frames_didn = reshape_didn(frames)
-    transformed_frames_didn = transform_didn(reshaped_frames_didn)
-    prediction = get_prediction_didn(transformed_frames_didn)
+    reshaped_frames = reshape_didn(frames)
+    transformed_frames = transform_didn(reshaped_frames)
+    prediction = get_prediction_didn(transformed_frames)
     return prediction
-
-
-def print_conf():
-    conf = env_file.get('.env.example')
-    print("SYSTEM CONFIGURATION")
-    print(tabulate(conf.items(), headers=['Name', 'Value'], tablefmt='orgtbl'))
 
 
 def main():
