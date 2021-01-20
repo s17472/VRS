@@ -56,7 +56,7 @@ SINGLE_CLASS_FILE_COUNT = 997
 """
 Shuffle the cards ;)
 """
-fight_final = random.sample(list_fight, FILE_COUNT)
+fight_final = random.sample(list_fight, SINGLE_CLASS_FILE_COUNT)
 no_fight_final = random.sample(list_no_fight, SINGLE_CLASS_FILE_COUNT)
 
 """
@@ -105,7 +105,7 @@ test_dataset_name = 'test_dataset'
 
 def get_frames(current_dir, file_name):
     """
-    Takes video file from given directory, makes transformations on each frame including OF
+    Takes video file from given directory and makes transformations on each frame
     Args:
         current_dir: Video file directory
         file_name: File name
@@ -118,22 +118,21 @@ def get_frames(current_dir, file_name):
     vidcap = cv2.VideoCapture(in_file)
 
     _, first_image = vidcap.read()
-    prev = cv2.cvtColor(first_image, cv2.COLOR_BGR2RGB)
 
-    flows = []
+    images = []
     count = 0
     while count < _images_per_file:
         _, image = vidcap.read()
         curr = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-        flow = convert_to_optical_flow(prev, curr, img_size)
+        resized = cv2.resize(curr, dsize=(img_size, img_size),
+                                 interpolation=cv2.INTER_CUBIC)
 
-        flows.append(flow)
+        images.append(resized)
 
-        prev = curr
         count += 1
 
-    return (np.array(flows) / 255.).astype(np.float16)
+    return (np.array(images) / 255.).astype(np.float16)
 
 
 image_model = load_model('/path/to/VGG16/model/file')
