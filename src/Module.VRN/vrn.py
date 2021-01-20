@@ -1,5 +1,5 @@
 """
-Python script for learning VRN network (with RAFT OF)
+Python script for learning VRN network
 - Jakub Kulaszewicz
 """
 
@@ -17,7 +17,6 @@ from tensorflow.keras.layers import LSTM
 from tensorflow.keras.layers import Dense, Activation
 from tensorflow.keras.models import load_model
 from tensorflow import keras
-from raft_optical_flow import convert_to_optical_flow
 
 
 
