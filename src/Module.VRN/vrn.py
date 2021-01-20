@@ -337,11 +337,11 @@ batchS = 500
 Per epoch checkpoints setup, early stop callback to save some machine time, 
 tensor board config for learning process logs and finally running learning process
 """
-checkpoint = ModelCheckpoint(filepath='/mnt/lun2/s17838/models_vrn_17.01.2021/vrn.model.{epoch:02d}.h5',
+checkpoint = ModelCheckpoint(filepath='/path/to/save/each/checkpoint/vrn.model.{epoch:02d}.h5',
                              monitor='val_accuracy', verbose=1, save_best_only=False, save_weights_only=False,
                              mode='auto', period=1)
 early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=80, verbose=1, mode='auto')
-logs = TensorBoard(log_dir='/mnt/lun2/s17838/models_vrn_17.01.2021/logs')
+logs = TensorBoard(log_dir='/path/to/save//logs')
 history = model.fit(np.array(data[0:SINGLE_CLASS_FILE_COUNT]), np.array(target[0:SINGLE_CLASS_FILE_COUNT]),
                     epochs=epoch,
                     validation_data=(
