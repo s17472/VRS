@@ -4,6 +4,7 @@
 """
 Python script for learning base VGG16 from ground up or Keras version with imagenet weights for fine-tuning
 (for binary classification)
+- Jakub Kulaszewicz
 """
 
 import keras
