@@ -13,7 +13,7 @@ services:
       ACCEPT_EULA: Y
 
   main:
-    container_name: vrs-Module.Main
+    container_name: vrs-module-main
     build: src/Module.Main
     environment:
       CAM_IP: 'http://host.docker.internal:8000/camera/mjpeg'
