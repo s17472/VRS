@@ -2,7 +2,7 @@ import argparse
 import cv2
 import imutils
 import numpy as np
-from data_transformation import reshape, get_optical_flow, set_optical_flow, normalize_respectively
+from fgn_data_transformation import reshape, get_optical_flow, set_optical_flow, normalize_respectively
 from imutils import paths
 from keras.models import load_model
 from config import FRAMES_NO
@@ -10,7 +10,7 @@ from config import FRAMES_NO
 
 def reshape_frames(frames):
     """
-    Reshaped frames using method from data_transformation module
+    Reshaped frames using method from fgn_data_transformation module
     Args:
         frames: frames to be reshaped
 

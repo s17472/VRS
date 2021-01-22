@@ -3,6 +3,7 @@ import logging
 import seqlog
 
 from config import SEQ_PATH, CAM_IP
+from numpy import mean
 
 seqlog.log_to_seq(
     server_url=SEQ_PATH,
@@ -15,9 +16,33 @@ seqlog.log_to_seq(
 )
 
 
+correct = []
+nieprzemoc = []
+preds = []
+counter = []
+
+
+def analise(pred):
+    counter.append(1)
+    if pred >= 0.70:
+        correct.append(1)
+        nieprzemoc.append(0)
+    else:
+        correct.append(0)
+        nieprzemoc.append(1)
+    preds.append(pred)
+
+    if len(preds) > 5:
+        preds.pop(0)
+        correct.pop(0)
+        nieprzemoc.pop(0)
+
+    logging.warn("{}: mean = {}, przemoc = {}, nie przemoc = {}\n".format(len(counter), mean(preds), sum(correct), sum(nieprzemoc)))
+
+
 def f(*preds):
-    weights = {'FGN': 0.6,
-               'VRN': 0.4,
+    weights = {'FGN': 0.4,
+               'VRN': 0.6,
                'DIDN': 0.2}
 
     def norm(value):
@@ -47,6 +72,7 @@ def log(module_type, ts, source, prediction):
 
 def log_final_result(ts, source, predictions):
     prediction = f(*predictions)
+    analise(prediction)
     logging.info(
         "{ModuleType}: Prediction: {Prediction}%, violence probability - {Probability}, timestamp: {Timestamp}",
         ModuleType='VRS', Prediction=round(prediction * 100, 2), Probability=get_probablity_string(prediction),
