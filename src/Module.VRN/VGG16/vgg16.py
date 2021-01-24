@@ -7,7 +7,6 @@ Python script for learning base VGG16 from ground up or Keras version with image
 - Jakub Kulaszewicz
 """
 
-import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten
@@ -96,7 +95,7 @@ Learning related configuration
 from tensorflow.keras.optimizers import SGD
 
 opt = SGD(lr=0.001)
-model.compile(optimizer=opt, loss=keras.losses.categorical_crossentropy, metrics=['accuracy'])
+model.compile(optimizer=opt, loss=tf.keras.losses.categorical_crossentropy, metrics=['accuracy'])
 
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
 
