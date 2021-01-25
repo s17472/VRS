@@ -6,8 +6,8 @@ from datetime import datetime
 import cv2
 from config import (CAM_IP, DIDN_ENABLED, DIDN_FRAME_COUNT, FGN_ENABLED,
                     FGN_FRAME_COUNT, VRN_ENABLED, VRN_FRAME_COUNT)
-from didn import get_prediction_didn, reshape_didn, transform_didn
-from fgn import get_prediction_fgn, reshape_fgn, transform_fgn
+from didn import prediction_didn, reshape_didn, transform_didn
+from fgn import predict_fgn, reshape_fgn, transform_fgn
 from log import log_all, log_start, log_stop
 from video_cap import available_frames, collect_frames
 from vrn import predict_vrn, reshape_vrn, transform_vrn
@@ -32,11 +32,11 @@ def main():
             
             threads = dict()
             if FGN_ENABLED:
-                threads["FGN"] = pool.apply_async(func=predict, args=(available_frames[-FGN_FRAME_COUNT:], reshape_fgn, transform_fgn, get_prediction_fgn,))
+                threads["FGN"] = pool.apply_async(func=predict, args=(available_frames[-FGN_FRAME_COUNT:], reshape_fgn, transform_fgn, predict_fgn,))
             if VRN_ENABLED:
                 threads["VRN"] = pool.apply_async(func=predict, args=(available_frames[-VRN_FRAME_COUNT:], reshape_vrn, transform_vrn, predict_vrn,))
             if DIDN_ENABLED:
-                threads["DIDN"] = pool.apply_async(func=predict, args=(available_frames[-DIDN_FRAME_COUNT:], reshape_didn, transform_didn, get_prediction_didn,))
+                threads["DIDN"] = pool.apply_async(func=predict, args=(available_frames[-DIDN_FRAME_COUNT:], reshape_didn, transform_didn, prediction_didn,))
 
             predictions = []
             for name, t in threads.items():

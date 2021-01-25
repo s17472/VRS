@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from config import VRN_FRAME_COUNT, VRN_PATH
-from grpc_manager import grpc_predict, grpc_prep
+from grpc_manager import grpc_predict, grpc_prep, grpc_request
 
 
 def reshape_vrn(frames):
@@ -23,10 +23,8 @@ def transform_vrn(frames):
 
 
 def predict_vgg(data):
-    stub, grpc_request = grpc_prep(VRN_PATH, "input_1", "vgg_base", data)
-    return grpc_predict(stub, grpc_request, "fc2")
-
+    return grpc_request(data, VRN_PATH, "input_1", "fc2", "vgg_base")
+    
 
 def predict_vrn(data):
-    stub, grpc_request = grpc_prep(VRN_PATH, "lstm_input", "vrn", data)
-    return grpc_predict(stub, grpc_request, "activation_2")[0]
+    return grpc_request(data, VRN_PATH, "lstm_input", "activation_2", "vrn")[0]

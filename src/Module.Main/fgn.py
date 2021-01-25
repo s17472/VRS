@@ -3,7 +3,7 @@ import numpy as np
 from config import FGN_PATH
 from fgn_data_transformation import (get_optical_flow, normalize_respectively,
                                      set_optical_flow)
-from grpc_manager import grpc_predict, grpc_prep
+from grpc_manager import grpc_predict, grpc_prep, grpc_request
 
 
 def reshape_fgn(frames):
@@ -30,7 +30,5 @@ def transform_fgn(frames):
     return data
 
 
-def get_prediction_fgn(data):
-    stub, grpc_request = grpc_prep(FGN_PATH, "input_1", 'fgn', data)
-    predict = grpc_predict(stub, grpc_request, "dense_2")[0]
-    return predict
+def predict_fgn(data):
+    return grpc_request(data, FGN_PATH, "input_1", "dense_2", "fgn")[0]
