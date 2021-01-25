@@ -1,9 +1,8 @@
 import cv2
 import numpy as np
 import tensorflow as tf
-
 from config import DIDN_PATH
-from grpc_manager import grpc_prep, grpc_predict
+from grpc_manager import grpc_predict, grpc_prep
 
 
 def reshape_didn(frames):

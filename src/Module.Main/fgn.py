@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
-
 from config import FGN_PATH
-from fgn_data_transformation import get_optical_flow, set_optical_flow, normalize_respectively
+from fgn_data_transformation import (get_optical_flow, normalize_respectively,
+                                     set_optical_flow)
 from grpc_manager import grpc_predict, grpc_prep
 
 

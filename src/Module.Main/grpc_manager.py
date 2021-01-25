@@ -1,8 +1,7 @@
-from tensorboard.compat.proto import types_pb2
-from tensorflow_serving.apis import predict_pb2
-from tensorflow_serving.apis import prediction_service_pb2_grpc
 import grpc
 import tensorflow as tf
+from tensorboard.compat.proto import types_pb2
+from tensorflow_serving.apis import predict_pb2, prediction_service_pb2_grpc
 
 
 def grpc_prep(host, input_name, model_name, img):

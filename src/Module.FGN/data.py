@@ -1,10 +1,11 @@
 import os
+
 import numpy as np
-from keras.utils import Sequence
-from keras.utils import np_utils
-from fgn_data_transformation import video_2_npy, color_jitter, uniform_sampling, random_flip, normalize, \
-    normalize_respectively
-from config import SIZE, FRAMES_NO, BATCH_SIZE
+from config import BATCH_SIZE, FRAMES_NO, SIZE
+from fgn_data_transformation import (color_jitter, normalize,
+                                     normalize_respectively, random_flip,
+                                     uniform_sampling, video_2_npy)
+from keras.utils import Sequence, np_utils
 
 
 class DataGenerator(Sequence):

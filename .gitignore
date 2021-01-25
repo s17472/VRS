@@ -463,11 +463,6 @@ fabric.properties
 
 ### vscode ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,pycharm,vscode
 
@@ -502,21 +497,11 @@ MANIFEST
 /src/Module.DIDN/model/didn/
 /src/Module.VRN/model/vgg_base/
 /src/Module.VRN/model/vrn/
-/venv/Scripts/activate
-/venv/Scripts/activate.bat
-/venv/Scripts/Activate.ps1
-/venv/Scripts/deactivate.bat
-/venv/Scripts/easy_install.exe
-/venv/Scripts/easy_install-3.8.exe
 /.idea/misc.xml
 /.idea/modules.xml
-/venv/Scripts/pip.exe
-/venv/Scripts/pip3.8.exe
-/venv/Scripts/pip3.exe
+/venv/*
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/inspectionProfiles/Project_Default.xml
-/venv/Scripts/python.exe
-/venv/Scripts/pythonw.exe
-/venv/pyvenv.cfg
 /.idea/vcs.xml
 /.idea/VRS.iml
+.env

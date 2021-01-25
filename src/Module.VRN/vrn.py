@@ -3,21 +3,20 @@ Python script for learning VRN network
 - Jakub Kulaszewicz
 """
 
-import cv2
 import os
-import sys
-import h5py
 import random
-import numpy as np
+import sys
 from random import shuffle
-from tensorflow.keras import backend as K
-from tensorflow.keras.models import Model, Sequential
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
-from tensorflow.keras.layers import LSTM
-from tensorflow.keras.layers import Dense, Activation
-from tensorflow.keras.models import load_model
-from tensorflow import keras
 
+import cv2
+import h5py
+import numpy as np
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras.callbacks import (EarlyStopping, ModelCheckpoint,
+                                        TensorBoard)
+from tensorflow.keras.layers import LSTM, Activation, Dense
+from tensorflow.keras.models import Model, Sequential, load_model
 
 
 def print_progress(count, max_count):

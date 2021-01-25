@@ -1,46 +1,21 @@
 import json
 import logging
-import seqlog
 
-from config import SEQ_PATH, CAM_IP
-from numpy import mean
+import seqlog
+from config import CAM_IP, SEQ_PATH
 
 seqlog.log_to_seq(
     server_url=SEQ_PATH,
-    api_key="My API Key",
+    api_key="API Key",
     level=logging.INFO,
     batch_size=1,
-    auto_flush_timeout=10,  # seconds
+    auto_flush_timeout=10,
     override_root_logger=True,
-    json_encoder_class=json.encoder.JSONEncoder  # Optional; only specify this if you want to use a custom JSON encoder
+    json_encoder_class=json.encoder.JSONEncoder
 )
 
 
-correct = []
-nieprzemoc = []
-preds = []
-counter = []
-
-
-def analise(pred):
-    counter.append(1)
-    if pred >= 0.70:
-        correct.append(1)
-        nieprzemoc.append(0)
-    else:
-        correct.append(0)
-        nieprzemoc.append(1)
-    preds.append(pred)
-
-    if len(preds) > 5:
-        preds.pop(0)
-        correct.pop(0)
-        nieprzemoc.pop(0)
-
-    logging.warn("{}: mean = {}, przemoc = {}, nie przemoc = {}\n".format(len(counter), mean(preds), sum(correct), sum(nieprzemoc)))
-
-
-def f(*preds):
+def f(*predictions):
     weights = {'FGN': 0.4,
                'VRN': 0.6,
                'DIDN': 0.2}
@@ -48,19 +23,15 @@ def f(*preds):
     def norm(value):
         return 1 if value > 1 else value
 
-    v = sum([p * weights[name] for name, p in preds])
+    v = sum([p * weights[name] for name, p in predictions])
     return norm(v)
 
 
 def get_probablity_string(prediction):
-    if prediction < 0.5:
+    if prediction < 0.7:
         return "Low"
-    elif prediction < 0.7:
-        return "Medium"
-    elif prediction < 0.9:
-        return "High"
     else:
-        return "Very high"
+        return "High"
 
 
 def log(module_type, ts, source, prediction):
@@ -72,7 +43,6 @@ def log(module_type, ts, source, prediction):
 
 def log_final_result(ts, source, predictions):
     prediction = f(*predictions)
-    analise(prediction)
     logging.info(
         "{ModuleType}: Prediction: {Prediction}%, violence probability - {Probability}, timestamp: {Timestamp}",
         ModuleType='VRS', Prediction=round(prediction * 100, 2), Probability=get_probablity_string(prediction),
@@ -86,8 +56,8 @@ def log_all(ts, source, *predictions):
     log_final_result(ts, source, predictions)
 
 
-def log_msg(msg, *parametrs):
-    logging.info(msg, *parametrs)
+def log_msg(msg, *parameters):
+    logging.info(msg, *parameters)
 
 
 def log_start(source, fgn, vrn, didn):

@@ -1,8 +1,7 @@
 import cv2
 import numpy as np
-
 from config import VRN_FRAME_COUNT, VRN_PATH
-from grpc_manager import grpc_prep, grpc_predict
+from grpc_manager import grpc_predict, grpc_prep
 
 
 def reshape_vrn(frames):
@@ -18,14 +17,16 @@ def reshape_vrn(frames):
 def transform_vrn(frames):
     frames = np.array(frames)
     frames = (frames / 255.).astype(np.float16)
-
-    stub, grpc_request = grpc_prep(VRN_PATH, "input_1", "vgg_base", frames)
-    transfer_values = grpc_predict(stub, grpc_request, "fc2")
-    data = np.reshape(transfer_values, [1, VRN_FRAME_COUNT, 4096])
+    data = predict_vgg(frames)
+    data = np.reshape(data, [1, VRN_FRAME_COUNT, 4096])
     return data
 
 
-def get_prediction_vrn(data):
+def predict_vgg(data):
+    stub, grpc_request = grpc_prep(VRN_PATH, "input_1", "vgg_base", data)
+    return grpc_predict(stub, grpc_request, "fc2")
+
+
+def predict_vrn(data):
     stub, grpc_request = grpc_prep(VRN_PATH, "lstm_input", "vrn", data)
-    score = grpc_predict(stub, grpc_request, "activation_2")
-    return score[0]
+    return grpc_predict(stub, grpc_request, "activation_2")[0]

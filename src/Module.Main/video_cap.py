@@ -1,12 +1,12 @@
-frames_now = []
+available_frames = []
 
 
 def collect_frames(cap):
     while True:
-        if len(frames_now) > 64:
-            frames_now.pop(0)
+        if len(available_frames) > 64:
+            available_frames.pop(0)
         suc, frame = cap.read()
         if not suc:
             break
 
-        frames_now.append(frame)
+        available_frames.append(frame)

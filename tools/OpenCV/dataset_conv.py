@@ -1,9 +1,10 @@
 import argparse
 import os
+
 import numpy as np
-from PIL import Image
 from imutils import paths
 from opencv_optical_flow import convert_to_optical_flow
+from PIL import Image
 
 
 def save_images(images, path):

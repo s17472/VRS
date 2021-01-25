@@ -8,12 +8,12 @@ Python script for learning base VGG16 from ground up or Keras version with image
 """
 
 import keras
-from tensorflow.keras.models import Sequential
-from tensorflow.keras import Model
-from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications import VGG16
 import tensorflow as tf
+from tensorflow.keras import Model
+from tensorflow.keras.applications import VGG16
+from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPool2D
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 """
 GPU session config
@@ -98,7 +98,8 @@ from tensorflow.keras.optimizers import SGD
 opt = SGD(lr=0.001)
 model.compile(optimizer=opt, loss=keras.losses.categorical_crossentropy, metrics=['accuracy'])
 
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
+from tensorflow.keras.callbacks import (EarlyStopping, ModelCheckpoint,
+                                        TensorBoard)
 
 checkpoint = ModelCheckpoint(filepath='/path/to/save/checkpoints/vgg16.model.{epoch:02d}.h5',
                              monitor='val_accuracy', verbose=1, save_best_only=False, save_weights_only=False,

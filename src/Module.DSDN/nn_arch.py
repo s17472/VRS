@@ -1,7 +1,8 @@
-from keras import Sequential, Model
+from keras import Model, Sequential
 from keras.applications.vgg16 import VGG16
-from keras.layers import LSTM, Dropout, Dense, MaxPooling2D, Flatten, Conv2D, \
-    AveragePooling2D, BatchNormalization, Activation, Reshape
+from keras.layers import (LSTM, Activation, AveragePooling2D,
+                          BatchNormalization, Conv2D, Dense, Dropout, Flatten,
+                          MaxPooling2D, Reshape)
 
 
 class SimpleVGG16:
