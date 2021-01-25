@@ -13,7 +13,7 @@
  * [docker-compose.yml](./docker-compose.yml) – plik konfiguracyjny, który pozwala na zbudowanie i uruchomienie kontenerów 
 ## Konfiguracja systemu
 [docker-compose.yml](./docker-compose.yml) - plik rozruchowy z opcjami konfiguracji
-- `CAM_IP` - adres streamu wideo
+- `CAM_ADDRESS` - adres streamu wideo
 - `FGN_ENABLED` - włącz/wyłącz moduł FGN
 - `VRN_ENABLED` - włącz/wyłącz moduł FGN
 - `DIDN_ENABLED` - włącz/wyłącz moduł FGN

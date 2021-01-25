@@ -2,10 +2,10 @@ import json
 import logging
 
 import seqlog
-from config import CAM_IP, SEQ_PATH
+from config import CAM_ADDRESS, SEQ_ADDRESS
 
 seqlog.log_to_seq(
-    server_url=SEQ_PATH,
+    server_url=SEQ_ADDRESS,
     api_key="API Key",
     level=logging.INFO,
     batch_size=1,
@@ -66,4 +66,4 @@ def log_start(source, fgn, vrn, didn):
 
 
 def log_stop():
-    logging.warn("Stopping VRS on {Source}", Source=CAM_IP, Action="Stop")
+    logging.warn("Stopping VRS on {Source}", Source=CAM_ADDRESS, Action="Stop")

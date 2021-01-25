@@ -15,15 +15,16 @@ services:
   main:
     container_name: vrs-module-main
     build: src/Module.Main
+    command: [ "python", "main.py" ]
     environment:
       CAM_IP: 'http://81.200.4.117/mjpg/video.mjpg'
       FGN_ENABLED: 'True'
       VRN_ENABLED: 'True'
       DIDN_ENABLED: 'True'
-      SEQ_PATH: 'http://seq:5341/'
-      FGN_PATH: 'module-fgn:8500'
-      VRN_PATH: 'module-vrn:8500'
-      DIDN_PATH: 'module-didn:8500'
+      SEQ_ADDRESS: 'http://seq:5341/'
+      FGN_ADDRESS: 'module-fgn:8500'
+      VRN_ADDRESS: 'module-vrn:8500'
+      DIDN_ADDRESS: 'module-didn:8500'
     depends_on:
       - seq
       - module-didn

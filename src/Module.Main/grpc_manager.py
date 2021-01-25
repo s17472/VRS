@@ -21,7 +21,7 @@ def grpc_predict(stub, grpc_request, output_name):
     return result
 
 
-def grpc_request(transformed_frames, path, input_name, output_name, model_name):
-    stub, grpc_request = grpc_prep(path, input_name, model_name, transformed_frames)
+def grpc_request(transformed_frames, address, input_name, output_name, model_name):
+    stub, grpc_request = grpc_prep(address, input_name, model_name, transformed_frames)
     pred_box = grpc_predict(stub, grpc_request, output_name)
     return pred_box

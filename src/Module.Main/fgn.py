@@ -1,12 +1,13 @@
 import cv2
 import numpy as np
-from config import FGN_PATH
+
+from config import FGN_ADDRESS
 from fgn_data_transformation import (get_optical_flow, normalize_respectively,
                                      set_optical_flow)
-from grpc_manager import grpc_predict, grpc_prep, grpc_request
+from grpc_manager import grpc_request
 
 
-def reshape_fgn(frames):
+def fgn_reshape(frames):
     reshaped_frames = []
     for frame in frames:
         frame = cv2.resize(frame, (64, 64), interpolation=cv2.INTER_AREA)
@@ -17,7 +18,7 @@ def reshape_fgn(frames):
     return reshaped_frames
 
 
-def transform_fgn(frames):
+def fgn_transform(frames):
     collected_frames = np.array(frames)
 
     flows = get_optical_flow(collected_frames)
@@ -30,5 +31,5 @@ def transform_fgn(frames):
     return data
 
 
-def predict_fgn(data):
-    return grpc_request(data, FGN_PATH, "input_1", "dense_2", "fgn")[0]
+def fgn_predict(data):
+    return grpc_request(data, FGN_ADDRESS, "input_1", "dense_2", "fgn")[0]
