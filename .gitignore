@@ -498,7 +498,7 @@ MANIFEST
 !*/model/tf_model_here
 */.idea/
 /src/Module.Main/venv/
-/src/Module.FGN/model/flow/
+/src/Module.FGN/model/fgn/
 /src/Module.DIDN/model/didn/
 /src/Module.VRN/model/vgg_base/
 /src/Module.VRN/model/vrn/
@@ -520,4 +520,3 @@ MANIFEST
 /venv/pyvenv.cfg
 /.idea/vcs.xml
 /.idea/VRS.iml
-/VRS.zip
