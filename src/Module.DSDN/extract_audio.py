@@ -1,8 +1,10 @@
 import argparse
 import csv
-from yt_downloader import YTDownloader
+
 from moviepy.editor import *
-from tools import refactor, status_message, create_dir, remove_dir
+from yt_downloader import YTDownloader
+
+from tools import create_dir, refactor, remove_dir, status_message
 
 
 class AudioSetCollector:

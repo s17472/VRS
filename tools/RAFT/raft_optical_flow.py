@@ -4,13 +4,12 @@ import cv2
 
 sys.path.append('core')
 import argparse
+
 import numpy as np
 import torch
-
+from raft import RAFT
 from utils import flow_viz
 from utils.utils import InputPadder
-from raft import RAFT
-
 
 args = argparse.Namespace()
 args.alternate_corr = False

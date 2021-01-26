@@ -1,13 +1,13 @@
 import argparse
+
+import config
 import keras
 import keras.backend as K
 import matplotlib.pyplot as plt
 import numpy as np
-from keras.callbacks import CSVLogger
-from keras.callbacks import LearningRateScheduler
-from keras.optimizers import SGD
-import config
 from data import DataGenerator
+from keras.callbacks import CSVLogger, LearningRateScheduler
+from keras.optimizers import SGD
 from model import flow_gated_network_model
 
 

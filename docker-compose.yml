@@ -15,35 +15,40 @@ services:
   main:
     container_name: vrs-module-main
     build: src/Module.Main
+    command: [ "python", "main.py" ]
     environment:
-      CAM_IP: 'http://host.docker.internal:8000/camera/mjpeg'
+      CAM_IP: 'http://81.200.4.117/mjpg/video.mjpg'
       FGN_ENABLED: 'True'
       VRN_ENABLED: 'True'
       DIDN_ENABLED: 'True'
+      SEQ_ADDRESS: 'http://seq:5341/'
+      FGN_ADDRESS: 'fgn:8500'
+      VRN_ADDRESS: 'vrn:8500'
+      DIDN_ADDRESS: 'didn:8500'
     depends_on:
       - seq
-      - module-didn
-      - module-fgn
-      - module-vrn
+      - didn
+      - fgn
+      - vrn
 
-  module-fgn:
-    container_name: vrs-module-fgn
+  fgn:
+    container_name: vrs-fgn
     build: src/Module.FGN/
     ports:
       - '8520:8500'
     environment:
       MODEL_NAME: fgn
 
-  module-didn:
-    container_name: vrs-module-didn
+  didn:
+    container_name: vrs-didn
     build: src/Module.DIDN/
     ports:
       - '8510:8500'
     environment: 
       MODEL_NAME: didn
 
-  module-vrn:
-    container_name: vrs-module-vrn
+  vrn:
+    container_name: vrs-vrn
     build: src/Module.VRN/
     command: ["--model_config_file=/models/models.config"]
     ports:

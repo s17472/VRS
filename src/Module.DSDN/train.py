@@ -1,15 +1,17 @@
 import argparse
 import os
 import random
+
 import cv2
 import matplotlib.pyplot as plt
+import nn_arch
 import numpy as np
-from tensorflow.python.keras.applications import imagenet_utils
 from keras_preprocessing.image import img_to_array
 from skimage.transform import resize
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-import nn_arch
+from tensorflow.python.keras.applications import imagenet_utils
+
 from tools import create_dir
 
 

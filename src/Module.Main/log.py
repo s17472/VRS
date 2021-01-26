@@ -1,57 +1,45 @@
+"""
+Script responsible for handling Seq and logs
+- Benedykt Kościński
+"""
 import json
 import logging
+
 import seqlog
+from config import CAM_ADDRESS, SEQ_ADDRESS
 
-from config import SEQ_PATH, CAM_IP
-from numpy import mean
-
+"""
+Seq logger initialization
+"""
 seqlog.log_to_seq(
-    server_url=SEQ_PATH,
-    api_key="My API Key",
+    server_url=SEQ_ADDRESS,
+    api_key="API Key",
     level=logging.INFO,
     batch_size=1,
-    auto_flush_timeout=10,  # seconds
+    auto_flush_timeout=10,
     override_root_logger=True,
-    json_encoder_class=json.encoder.JSONEncoder  # Optional; only specify this if you want to use a custom JSON encoder
+    json_encoder_class=json.encoder.JSONEncoder
 )
 
 
-correct = []
-nieprzemoc = []
-preds = []
-counter = []
-
-
-def analise(pred):
-    counter.append(1)
-    if pred >= 0.70:
-        correct.append(1)
-        nieprzemoc.append(0)
-    else:
-        correct.append(0)
-        nieprzemoc.append(1)
-    preds.append(pred)
-
-    if len(preds) > 5:
-        preds.pop(0)
-        correct.pop(0)
-        nieprzemoc.pop(0)
-
-    logging.warn("{}: mean = {}, przemoc = {}, nie przemoc = {}\n".format(len(counter), mean(preds), sum(correct), sum(nieprzemoc)))
-
-
-def f(*preds):
-    weights = {'FGN': 0.4,
-               'VRN': 0.6,
+"""
+Function responsible for calculating final prediction
+"""
+def f(*predictions):
+    weights = {'FGN': 0.6,
+               'VRN': 0.4,
                'DIDN': 0.2}
 
     def norm(value):
         return 1 if value > 1 else value
 
-    v = sum([p * weights[name] for name, p in preds])
+    v = sum([p * weights[name] for name, p in predictions])
     return norm(v)
 
 
+"""
+Translate probability score to category 
+"""
 def get_probablity_string(prediction):
     if prediction < 0.5:
         return "Low"
@@ -72,7 +60,6 @@ def log(module_type, ts, source, prediction):
 
 def log_final_result(ts, source, predictions):
     prediction = f(*predictions)
-    analise(prediction)
     logging.info(
         "{ModuleType}: Prediction: {Prediction}%, violence probability - {Probability}, timestamp: {Timestamp}",
         ModuleType='VRS', Prediction=round(prediction * 100, 2), Probability=get_probablity_string(prediction),
@@ -86,8 +73,8 @@ def log_all(ts, source, *predictions):
     log_final_result(ts, source, predictions)
 
 
-def log_msg(msg, *parametrs):
-    logging.info(msg, *parametrs)
+def log_msg(msg, *parameters):
+    logging.info(msg, *parameters)
 
 
 def log_start(source, fgn, vrn, didn):
@@ -96,4 +83,4 @@ def log_start(source, fgn, vrn, didn):
 
 
 def log_stop():
-    logging.warn("Stopping VRS on {Source}", Source=CAM_IP, Action="Stop")
+    logging.warn("Stopping VRS on {Source}", Source=CAM_ADDRESS, Action="Stop")

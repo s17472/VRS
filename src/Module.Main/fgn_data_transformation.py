@@ -1,3 +1,7 @@
+"""
+Script responsible for preprocessing and transformations required before sending data to model.
+- Ola Piętka
+"""
 import cv2
 import numpy as np
 

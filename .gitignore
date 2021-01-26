@@ -368,6 +368,7 @@ MigrationBackup/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea
 
 # Generated files
 .idea/**/contentModel.xml
@@ -463,17 +464,13 @@ fabric.properties
 
 ### vscode ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,pycharm,vscode
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
 .Python
+venv*
 build/
 develop-eggs/
 dist/
@@ -489,36 +486,9 @@ wheels/
 pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
-.installed.cfg
 *.egg
+.installed.cfg
 MANIFEST
-*/venv*
-*venv*
-*/model/*
+**/model/*
 !*/model/tf_model_here
-*/.idea/
-/src/Module.Main/venv/
-/src/Module.FGN/model/flow/
-/src/Module.DIDN/model/didn/
-/src/Module.VRN/model/vgg_base/
-/src/Module.VRN/model/vrn/
-.DS_Store
-/venv/Scripts/activate
-/venv/Scripts/activate.bat
-/venv/Scripts/Activate.ps1
-/venv/Scripts/deactivate.bat
-/venv/Scripts/easy_install.exe
-/venv/Scripts/easy_install-3.8.exe
-/.idea/misc.xml
-/.idea/modules.xml
-/venv/Scripts/pip.exe
-/venv/Scripts/pip3.8.exe
-/venv/Scripts/pip3.exe
-/.idea/inspectionProfiles/profiles_settings.xml
-/.idea/inspectionProfiles/Project_Default.xml
-/venv/Scripts/python.exe
-/venv/Scripts/pythonw.exe
-/venv/pyvenv.cfg
-/.idea/vcs.xml
-/.idea/VRS.iml
-/VRS.zip
+.env

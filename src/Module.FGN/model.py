@@ -1,8 +1,8 @@
-from keras.layers import Dense, Flatten, Conv3D, MaxPooling3D, Dropout, Multiply
+import config
+from keras.layers import (Conv3D, Dense, Dropout, Flatten, MaxPooling3D,
+                          Multiply)
 from keras.layers.core import Lambda
 from keras.models import Input, Model
-
-import config
 
 
 def get_rgb(input_x):

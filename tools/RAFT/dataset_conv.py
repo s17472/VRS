@@ -1,16 +1,17 @@
 import sys
-from raft_optical_flow import load_image, flo_to_image, get_optical_flow
+
+from raft_optical_flow import flo_to_image, get_optical_flow, load_image
 
 sys.path.append('core')
 
 import argparse
 import os
+
 import numpy as np
 import torch
-from PIL import Image
 from imutils import paths
+from PIL import Image
 from raft import RAFT
-
 
 DEVICE = 'cuda'
 

@@ -1,8 +1,8 @@
 import argparse
 import os
+
 import tensorflow as tf
 from tensorflow.python.keras.models import load_model
-
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
