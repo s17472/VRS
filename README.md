@@ -1,4 +1,4 @@
-# VRS
+# Violence Recognintion System
 ## Struktura folderów
 * [doc](./doc) – dokumentacja
    * [Prezentacja.pdf](./doc/Prezentacja.pdf)– prezentacja systemu 
@@ -9,6 +9,7 @@
    * [Module.FGN](./src/Module.FGN) – sieć wykrywająca przemoc, Flow Gate Network
    * [Module.Main](./src/Module.Main) – główny moduł koordynujący pracą systemu
    * [Module.VRN](./src/Module.VRN) – sieć wykrywająca przemocom, Violence Recognition Network + sieć VGG16
+   * [Module.Boilerplate](./src/Module.Boilerplate) – porzucony boilerplate API do serwowania modelu
  * [tools](./tools) – zewnętrzne narzędzi wykorzystane podczas powstawania projektu 
  * [docker-compose.yml](./docker-compose.yml) – plik konfiguracyjny, który pozwala na zbudowanie i uruchomienie kontenerów 
 ## Konfiguracja systemu
