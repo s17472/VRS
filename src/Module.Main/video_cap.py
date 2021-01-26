@@ -1,3 +1,7 @@
+"""
+Function that handles the continuous collection of the appropriate number of frames.
+- Benedykt Kościński
+"""
 available_frames = []
 
 

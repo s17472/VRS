@@ -1,9 +1,13 @@
+"""
+Script responsible for reshaping, transforming and then sending data to container with DIDN module served via TensorFlow Serving
+- Benedykt Kościński
+"""
 import cv2
 import numpy as np
 import tensorflow as tf
 
 from config import DIDN_ADDRESS
-from grpc_manager import grpc_request
+from grpc_manager import grpc_predict
 
 
 def didn_reshape(frames):
@@ -25,7 +29,7 @@ def didn_transform(frames):
 
 
 def didn_predict(data):
-    pred_box = grpc_request(data[0], DIDN_ADDRESS, "input_1", "tf_op_layer_concat_10", "didn")
+    pred_box = grpc_predict(data[0], DIDN_ADDRESS, "input_1", "tf_op_layer_concat_10", "didn")
     pred_conf = list(pred_box._values)[4::5]
     if len(pred_conf) > 0:
         return max(pred_conf)

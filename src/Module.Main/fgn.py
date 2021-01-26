@@ -1,10 +1,14 @@
+"""
+Script responsible for reshaping, transforming and then sending data to container with FGN module served via TensorFlow Serving
+- Benedykt Kościński
+"""
 import cv2
 import numpy as np
 
 from config import FGN_ADDRESS
 from fgn_data_transformation import (get_optical_flow, normalize_respectively,
                                      set_optical_flow)
-from grpc_manager import grpc_request
+from grpc_manager import grpc_predict
 
 
 def fgn_reshape(frames):
@@ -32,4 +36,4 @@ def fgn_transform(frames):
 
 
 def fgn_predict(data):
-    return grpc_request(data, FGN_ADDRESS, "input_1", "dense_2", "fgn")[0]
+    return grpc_predict(data, FGN_ADDRESS, "input_1", "dense_2", "fgn")[0]

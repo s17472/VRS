@@ -1,9 +1,16 @@
+"""
+Script responsible for handling Seq and logs
+- Benedykt Kościński
+"""
 import json
 import logging
 
 import seqlog
 from config import CAM_ADDRESS, SEQ_ADDRESS
 
+"""
+Seq logger initialization
+"""
 seqlog.log_to_seq(
     server_url=SEQ_ADDRESS,
     api_key="API Key",
@@ -15,9 +22,12 @@ seqlog.log_to_seq(
 )
 
 
+"""
+Function responsible for calculating final prediction
+"""
 def f(*predictions):
-    weights = {'FGN': 0.4,
-               'VRN': 0.6,
+    weights = {'FGN': 0.6,
+               'VRN': 0.4,
                'DIDN': 0.2}
 
     def norm(value):
@@ -27,11 +37,18 @@ def f(*predictions):
     return norm(v)
 
 
+"""
+Translate probability score to category 
+"""
 def get_probablity_string(prediction):
-    if prediction < 0.7:
+    if prediction < 0.5:
         return "Low"
-    else:
+    elif prediction < 0.7:
+        return "Medium"
+    elif prediction < 0.9:
         return "High"
+    else:
+        return "Very high"
 
 
 def log(module_type, ts, source, prediction):

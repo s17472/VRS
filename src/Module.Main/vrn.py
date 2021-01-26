@@ -1,8 +1,12 @@
+"""
+Script responsible for reshaping, transforming and then sending data to container with VRN module served via TensorFlow Serving
+- Benedykt Kościński
+"""
 import cv2
 import numpy as np
 
 from config import VRN_FRAME_COUNT, VRN_ADDRESS
-from grpc_manager import grpc_request
+from grpc_manager import grpc_predict
 
 
 def vrn_reshape(frames):
@@ -24,8 +28,8 @@ def vrn_transform(frames):
 
 
 def vgg_predict(data):
-    return grpc_request(data, VRN_ADDRESS, "input_1", "fc2", "vgg_base")
+    return grpc_predict(data, VRN_ADDRESS, "input_1", "fc2", "vgg_base")
     
 
 def vrn_predict(data):
-    return grpc_request(data, VRN_ADDRESS, "lstm_input", "activation_2", "vrn")[0]
+    return grpc_predict(data, VRN_ADDRESS, "lstm_input", "activation_2", "vrn")[0]

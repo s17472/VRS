@@ -1,10 +1,17 @@
+"""
+COde responsible for processing and handling connection with trained modules via gRPC.
+- Benedykt Kościński
+"""
 import grpc
 import tensorflow as tf
 from tensorboard.compat.proto import types_pb2
 from tensorflow_serving.apis import predict_pb2, prediction_service_pb2_grpc
 
 
-def grpc_prep(host, input_name, model_name, img):
+"""
+Preparing gRPC request with serialized data for analysis.
+"""
+def grpc_prepare(host, input_name, model_name, img):
     GRPC_MAX_RECEIVE_MESSAGE_LENGTH = 4096 * 4096 * 3
     channel = grpc.insecure_channel(host, options=[('grpc.max_receive_message_length', GRPC_MAX_RECEIVE_MESSAGE_LENGTH)])
     stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
@@ -15,13 +22,10 @@ def grpc_prep(host, input_name, model_name, img):
     return stub, grpc_request
 
 
-def grpc_predict(stub, grpc_request, output_name):
+"""
+Send request with serialized data to module. 
+"""
+def grpc_predict(transformed_frames, address, input_name, output_name, model_name):
+    stub, grpc_request = grpc_prepare(address, input_name, model_name, transformed_frames)
     result = stub.Predict(grpc_request, 10)
-    result = result.outputs[output_name].float_val
-    return result
-
-
-def grpc_request(transformed_frames, address, input_name, output_name, model_name):
-    stub, grpc_request = grpc_prep(address, input_name, model_name, transformed_frames)
-    pred_box = grpc_predict(stub, grpc_request, output_name)
-    return pred_box
+    return result.outputs[output_name].float_val
