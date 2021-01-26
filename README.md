@@ -1,8 +1,8 @@
 # Violence Recognintion System
 ## Struktura folderów
 * [doc](./doc) – dokumentacja
-   * [Prezentacja.pdf](./doc/Prezentacja.pdf)– prezentacja systemu 
-   * [Praca_dyplomowa_VRS.pdf](./doc/Praca_dyplomowa_VRS.pdf)– dokumentacja systemu 
+   * [VRS_-_Praca_Dyplomowa.pdf](./doc/VRS_-_Praca_Dyplomowa.pdf)– prezentacja systemu 
+   * [VRS_-_Prezentacja.pdf](./doc/VRS_-_Prezentacja.pdf)– dokumentacja systemu 
  * [src](./src) – kod źródłowy systemu VRN
    * [Module.DIDN](./src/Module.DIDN) – sieć wykrywająca broń na obrazach, YOLOv3
    * [Module.DSDN](./src/Module.DSDN) – sieć klasyfikująca audio
